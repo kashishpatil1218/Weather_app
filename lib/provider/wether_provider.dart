@@ -1,44 +1,52 @@
+
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
 import '../api_Helper/api_helper.dart';
 import '../modal/wether_modal.dart';
 
-class WeatherProvider extends ChangeNotifier {
-  String search ='surat';
+class WeatherProvider extends ChangeNotifier
+{
   ApiHelper apiHelper = ApiHelper();
   WeatherModal? weatherModal;
   List<String> weather = [];
-
-  Future<WeatherModal?> fromMap(String city) async {
-    final data = await apiHelper.fetchApi(search);
+  String search = 'surat';
+  Future<WeatherModal?> fromMap()
+  async {
+    final data = await apiHelper.fetchData(search);
     weatherModal = WeatherModal.fromJson(data);
     return weatherModal;
   }
-
-  void searchCity(String city) {
-    search = city;
+  void citySearch(String value)
+  {
+    search = value;
     notifyListeners();
   }
 
-  Future<void> addFavCity(String name,String temp,String type)
+  Future<void> addToFavourite(String name,String status, String temp,String icon)
   async {
-    String data = '$name-$temp-$type';
+    String data = "$name-$status-$temp-$icon";
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     weather.add(data);
     // weather.clear();
-    sharedPreferences.setStringList('weather',weather);
+    sharedPreferences.setStringList('weather', weather);
+
   }
+
   Future<void> getFavouriteWeather()
   async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     weather = sharedPreferences.getStringList('weather') ?? <String>[];
+    print(weather);
     notifyListeners();
   }
 
   WeatherProvider()
   {
+    print(weather);
     getFavouriteWeather();
   }
 }

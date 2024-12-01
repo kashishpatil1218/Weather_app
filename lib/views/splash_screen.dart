@@ -17,7 +17,7 @@ class SplashScreen extends StatelessWidget {
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -31,8 +31,8 @@ class SplashScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset('assets/img/img.png'),
-            Text(
-              "claimet trracker",
+            const Text(
+              "AccuWeather",
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 30,

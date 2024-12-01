@@ -25,39 +25,7 @@ class LocationModal {
   }
 }
 
-class CurrentModal {
-  late double temp_c, temp_f, wind_mph, wind_kph, pressure_in, pressure_mb, uv;
-  late int is_day, humidity, cloud;
-  late Condition condition;
 
-  CurrentModal(
-      this.temp_c,
-      this.temp_f,
-      this.wind_mph,
-      this.wind_kph,
-      this.pressure_in,
-      this.uv,
-      this.is_day,
-      this.humidity,
-      this.cloud,
-      this.pressure_mb,
-      this.condition);
-
-  factory CurrentModal.fromJson(Map m1) {
-    return CurrentModal(
-        m1['temp_c'].toDouble(),
-        m1['temp_f'].toDouble(),
-        m1['wind_mph'].toDouble(),
-        m1['wind_kph'].toDouble(),
-        m1['pressure_in'].toDouble(),
-        m1['uv'].toDouble(),
-        m1['is_day'],
-        m1['humidity'],
-        m1['cloud'],
-        m1['pressure_mb'].toDouble(),
-        Condition.fromJson(m1['condition']));
-  }
-}
 
 class Condition {
   late String text, icon;
@@ -93,30 +61,16 @@ class Forecastday {
 
   factory Forecastday.fromJson(Map m1) {
     return Forecastday(
-      m1['date'],
-      DayModal.fromJson(m1['day']),
-      (m1['hour'] as List)
-          .map(
-            (e) => HourModal.fromJson(e),
-      )
-          .toList(),
-      AstroModal.fromJson(m1['astro']),
-    );
+        m1['date'],
+        DayModal.fromJson(m1['day']),
+        (m1['hour'] as List)
+            .map(
+              (e) => HourModal.fromJson(e),
+        )
+            .toList(),
+        AstroModal.fromJson(m1['astro']));
   }
 }
-
-class AstroModal
-{
-  late String sunrise,sunset;
-
-  AstroModal(this.sunrise,this.sunset);
-
-  factory AstroModal.fromJson(Map m1)
-  {
-    return AstroModal(m1['sunrise'], m1['sunset']);
-  }
-}
-
 class DayModal {
   late double maxtemp_c, mintemp_c;
   late DayConditionModal dayConditionModal;
@@ -129,6 +83,52 @@ class DayModal {
         DayConditionModal.fromJson(m1['condition']),m1['daily_chance_of_rain']);
   }
 }
+class AstroModal
+{
+  late String sunrise,sunset;
+
+  AstroModal(this.sunrise,this.sunset);
+
+  factory AstroModal.fromJson(Map m1)
+  {
+    return AstroModal(m1['sunrise'], m1['sunset']);
+  }
+}
+
+
+class CurrentModal {
+  late double temp_c, temp_f, wind_mph, wind_kph, pressure_in, pressure_mb, uv;
+  late int is_day, humidity, cloud;
+  late Condition condition;
+
+  CurrentModal(
+      this.temp_c,
+      this.temp_f,
+      this.wind_mph,
+      this.wind_kph,
+      this.pressure_in,
+      this.uv,
+      this.is_day,
+      this.humidity,
+      this.cloud,
+      this.pressure_mb,
+      this.condition);
+
+  factory CurrentModal.fromJson(Map m1) {
+    return CurrentModal(
+        m1['temp_c'].toDouble(),
+        m1['temp_f'].toDouble(),
+        m1['wind_mph'].toDouble(),
+        m1['wind_kph'].toDouble(),
+        m1['pressure_in'].toDouble(),
+        m1['uv'].toDouble(),
+        m1['is_day'],
+        m1['humidity'],
+        m1['cloud'],
+        m1['pressure_mb'].toDouble(),
+        Condition.fromJson(m1['condition']));
+  }
+}
 
 class DayConditionModal {
   late String text, icon;
@@ -137,6 +137,15 @@ class DayConditionModal {
 
   factory DayConditionModal.fromJson(Map m1) {
     return DayConditionModal(m1['text'], m1['icon']);
+  }
+}
+class HourConditionModal {
+  late String text, icon;
+
+  HourConditionModal(this.text, this.icon);
+
+  factory HourConditionModal.fromJson(Map m1) {
+    return HourConditionModal(m1['text'], m1['icon']);
   }
 }
 
@@ -154,12 +163,4 @@ class HourModal {
   }
 }
 
-class HourConditionModal {
-  late String text, icon;
 
-  HourConditionModal(this.text, this.icon);
-
-  factory HourConditionModal.fromJson(Map m1) {
-    return HourConditionModal(m1['text'], m1['icon']);
-  }
-}

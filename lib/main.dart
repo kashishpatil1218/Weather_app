@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wether_app/provider/wether_provider.dart';
+import 'package:wether_app/views/add_list.dart';
 import 'package:wether_app/views/home_page.dart';
 import 'package:wether_app/views/splash_screen.dart';
 
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/':(context)=> SplashScreen(),
           '/home':(context)=> HomePage(),
+          '/fav': (context) => FavouritePage(),
         },
       ),
     );
